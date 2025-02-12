@@ -18,10 +18,26 @@ The library currently supports the following features:
 - 🗄 Database - Get document, get list of documents, get count, create, update and delete documents
 - 📄 File upload
 - 🤙🏻 API calls
+- SocketIO
 
-We plan to add the following features in the future:
+## SocketIO
+```js
+import { WebSocketClient } from "./WebSocketClient";
 
-- Support for common functions like `exists` in the database.
+const wsClient = new WebSocketClient({ url: "https://your-frappe-site" });
+
+wsClient.connect();
+
+wsClient.subscribe("on_update", (data) => {
+  console.log("Data Updated:", data);
+});
+
+wsClient.emit("custom_event", { message: "Hello Frappe!" });
+
+// Later...
+wsClient.unsubscribe("on_update");
+wsClient.disconnect();
+```
 
 The library uses [Axios](https://axios-http.com) under the hood to make API calls to your Frappe backend.
 
