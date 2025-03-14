@@ -18,36 +18,32 @@ The library currently supports the following features:
 - 🗄 Database - Get document, get list of documents, get count, create, update and delete documents
 - 📄 File upload
 - 🤙🏻 API calls
-- SocketIO
+- Sockets
 
-## SocketIO
+## WebSocket
 ```js
-import { WebSocketClient } from "./WebSocketClient";
+import { FrappeWebSocket } from 'frappe-js-sdk';
 
-const wsClient = new WebSocketClient({ url: "https://your-frappe-site" });
+// Initialize WebSocket
+const socket = new FrappeWebSocket();
 
-wsClient.connect();
+// Connect to your Frappe server's WebSocket endpoint
+socket.connect('wss://your-frappe-site.com');
 
-wsClient.subscribe("on_update", (data) => {
-  console.log("Data Updated:", data);
+// Subscribe to updates for a specific DocType
+const unsubscribe = socket.subscribe('Todo', (data) => {
+  console.log('Received Todo update:', data);
 });
 
-wsClient.emit("custom_event", { message: "Hello Frappe!" });
+// Check WebSocket connection state
+// Returns: 0 (Connecting), 1 (Open), 2 (Closing), or 3 (Closed)
+const connectionState = socket.getState();
 
-// Later...
-wsClient.unsubscribe("on_update");
-wsClient.disconnect();
+// Later, when you want to stop listening
+unsubscribe();
 ```
 
-The library uses [Axios](https://axios-http.com) under the hood to make API calls to your Frappe backend.
-
-## Maintainers
-
-| Maintainer     | GitHub                                          | Social                                                       |
-| -------------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| Nikhil Kothari | [nikkothari22](https://github.com/nikkothari22) | [@nik_kothari22](https://twitter.com/nik_kothari22)          |
-| Janhvi Patil   | [janhvipatil](https://github.com/janhvipatil)   | [@janhvipatil_](https://twitter.com/janhvipatil_)           |
-| Sumit Jain     | [sumitjain236](https://github.com/sumitjain236) | [LinkedIn](https://www.linkedin.com/in/sumit-jain-66bb5719a) |
+The library uses fetch under the hood to make API calls to your Frappe backend and websocket, therefore it doesn't depend on any external library.
 
 ## Installation
 
