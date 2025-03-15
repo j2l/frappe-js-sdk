@@ -44,6 +44,7 @@ unsubscribe();
 ```
 
 The library uses fetch under the hood to make API calls to your Frappe backend and websocket, therefore it doesn't depend on any external library.
+🔥 ZERO production dependency. 🔥
 
 ## Installation
 
